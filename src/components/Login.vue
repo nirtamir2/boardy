@@ -6,12 +6,21 @@
       <img id="profile-img" class="profile-img-card" src="../assets/apple-touch-icon-180x180.png" />
       <p id="profile-name" class="profile-name-card"></p>
       <form class="form-signin">
-        <span id="reauth-email" class="reauth-email"></span>
         <div id = "input">
-          <input v-model="inputEmail" type="text" id="inputEmail" class="form-control" placeholder="User Name" required autofocus>
-          <input v-model="inputPassword" type="password" id="inputPassword" class="form-control" placeholder="Password"  required>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputName" placeholder="שם משתמש">
+            </div>
+            <label class="inputText col-sm-2 control-label" dir="rtl">שם משתמש: </label>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="inputPassword" placeholder="סיסמה">
+            </div>
+            <label class="inputText col-sm-2 control-label" dir="rtl">סיסמה:</label>
+          </div>
         </div>
-        <button  v-on:click="yourMethod()" type="submit" value="Sign In" class="btn btn-success btn-sm">התחבר</button>
+        <button  v-on:click="yourMethod()" type="submit" class="btn btn-success btn-sm">התחבר</button>
       </form><!-- /form -->
     </div><!-- /card-container -->
   </div><!-- /container -->
@@ -21,13 +30,14 @@
   export default {
     data() {
       return{
-        inputEmail: "",
+        inputName: "",
         inputPassword: "",
       }
     },
     methods:{
       yourMethod(){
-        alert(this.inputPassword + "  " +  this.inputEmail)
+        var createJson = {username: inputName, password: inputPassword};
+        alert(createJson);
       }
     }
   }
@@ -39,6 +49,11 @@
     height: 100%;
     background-repeat: no-repeat;
     background-image: url("../assets/pic2.jpg");
+  }
+
+  .inputText {
+    font-size: 20px;
+    font-family: Gisha;
   }
 
   .card-container.card {
@@ -114,7 +129,7 @@
     box-sizing: border-box;
   }
 
-  .form-signin #inputEmail,
+  .form-signin #inputName,
   .form-signin #inputPassword {
     direction: ltr;
     height: 44px;
