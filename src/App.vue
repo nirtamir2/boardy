@@ -9,7 +9,7 @@
                 <img src="https://randomuser.me/api/portraits/men/85.jpg"/>
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title>User NAme</v-list-tile-title>
+                <v-list-tile-title>User Name</v-list-tile-title>
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-btn icon @click.native.stop="mini = !mini">
@@ -31,9 +31,9 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
-      <v-toolbar fixed class="light-blue darken-4" dark>
+      <v-toolbar id="toolbar" fixed dark>
         <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>Boardy</v-toolbar-title>
+        <v-toolbar-title id="titletoolbar">Boardy</v-toolbar-title>
       </v-toolbar>
       <main>
         <v-container fluid>
@@ -62,5 +62,13 @@
     }
   }
 </script>
+
+<style scoped>
+  #toolbar {
+    background-color: #1FBBD9;
+
+  }
+
+</style>
 
 
