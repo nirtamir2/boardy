@@ -1,8 +1,8 @@
 <template dir="rtl">
   <v-app style="max-width: 400px; margin: auto;" standalone>
-    <v-toolbar >
+    <v-toolbar>
       <v-layout row wrap>
-        <v-flex >
+        <v-flex>
           <v-menu
             lazy
             :close-on-content-click="false"
@@ -12,14 +12,15 @@
             full-width
             :nudge-left="40"
             max-width="400px"
-          >          <v-text-field
-            slot="activator"
-            :label="this.chosenDate" dir="rtl"
-            v-model="e3"
-            prepend-icon="event"
-            readonly
-          ></v-text-field>
-            <v-date-picker v-model="chosenDate" scrollable actions >
+          >
+            <v-text-field
+              slot="activator"
+              :label="this.chosenDate" dir="rtl"
+              v-model="e3"
+              prepend-icon="event"
+              readonly
+            ></v-text-field>
+            <v-date-picker v-model="chosenDate" scrollable actions>
               <template scope="{ save, cancel }">
                 <v-card-actions>
                   <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
@@ -37,7 +38,7 @@
         style="min-height: 0;"
         grid-list-lg>
         <v-layout row wrap>
-          <v-flex xs12 v-for="item in getEventsByDay(chosenDate)">
+          <v-flex xs12 v-for="item in this.schedule">
             <v-card class="cyan darken-2 white--text">
               <v-container fluid grid-list-lg>
                 <v-layout row>
@@ -58,7 +59,8 @@
                     </v-checkbox>
                     <v-btn fab dark small primary>
                       <v-icon dark>remove</v-icon>
-                    </v-btn></div>
+                    </v-btn>
+                  </div>
                 </v-layout>
               </v-container>
             </v-card>
@@ -66,9 +68,10 @@
           <v-flex xs12>
           </v-flex>
           <div>
-            <v-btn fab dark small primary>
+            <v-btn fab dark small primary @click.native="getEventsByDay">
               <v-icon dark>add</v-icon>
-            </v-btn></div>
+            </v-btn>
+          </div>
         </v-layout>
       </v-container>
     </main>
@@ -78,38 +81,25 @@
 
 <script>
   export default{
-    methods:{
-      getEventsByDay(date)
-      {/*if (this.schedule.date===date)*/
-        return this.schedule.events;
+    methods: {
+      setScheduleByDate(){
+        this.schedule = this.getEventsByDay(this.chosenDate);
       },
-        setScheduleByDate(){this.schedule=getEventsByDay(this.chosenDate);}
+      getEventsByDay(date)
+      {
+        console.log("aaa");
+        this.$http.get('http://34.228.0.162:8000/api/schedule/').then((data) => {
+          console.log(data);
+          this.schedule = data.body[0].events;
+        })
+      }
     },
-    watch:{'chosenDate':'setScheduleByDate'},
+    watch: {'chosenDate': 'setScheduleByDate'},
     data(){
       return {
         e7: null,
-        schedule: {
-          "date": "2017-07-27 ",
-          "events": [
-            {
-              "url": "http://127.0.0.1:8000/events/1/",
-              "order": 1,
-              "image_url": "https://randomuser.me/api/portraits/men/86.jpg",
-              "text": "ארוחת בוקר",
-              "deleted": false,
-              "schedule": "http://127.0.0.1:8000/schedule/1/"
-            },{
-              "url": "http://127.0.0.1:8000/events/2/",
-              "order": 2,
-              "image_url": "https://randomuser.me/api/portraits/men/87.jpg",
-              "text": "ארוחת צהריים",
-              "deleted": false,
-              "schedule": "http://127.0.0.1:8000/schedule/2/"
-            }
-          ]
-        },
-        chosenDate:new Date().toISOString().slice(0,10),
+        schedule: this.getEventsByDay(),
+        chosenDate: new Date().toISOString().slice(0, 10),
       };
     }
   }
