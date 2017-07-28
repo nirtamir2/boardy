@@ -35,8 +35,7 @@
       <v-container
         fluid
         style="min-height: 0;"
-        grid-list-lg
-      >
+        grid-list-lg>
         <v-layout row wrap>
           <v-flex xs12 v-for="item in getEventsByDay(chosenDate)">
             <v-card class="cyan darken-2 white--text">
@@ -54,40 +53,28 @@
                       contain
                     ></v-card-media>
                   </v-flex>
+                  <div>
+                    <v-checkbox fab dark small primary v-model="check">
+                    </v-checkbox>
+                    <v-btn fab dark small primary>
+                      <v-icon dark>remove</v-icon>
+                    </v-btn></div>
                 </v-layout>
               </v-container>
             </v-card>
           </v-flex>
           <v-flex xs12>
           </v-flex>
+          <div>
+            <v-btn fab dark small primary>
+              <v-icon dark>add</v-icon>
+            </v-btn></div>
         </v-layout>
       </v-container>
     </main>
   </v-app>
 </template>
 
-<!--<template>-->
-  <!--&lt;!&ndash;<v-flex md12 lg4 lg-offset8>&ndash;&gt;-->
-    <!--&lt;!&ndash;<v-time-picker v-model="e7" format="24hr"></v-time-picker>&ndash;&gt;-->
-    <!--&lt;!&ndash;<p>{{e7}}</p>&ndash;&gt;-->
-  <!--&lt;!&ndash;</v-flex>&ndash;&gt;-->
-  <!--<v-layout row>-->
-    <!--<v-flex xs7>-->
-      <!--<div>-->
-        <!--<div class="headline">Supermodel</div>-->
-        <!--<div>Foster the People</div>-->
-      <!--</div>-->
-    <!--</v-flex>-->
-    <!--<v-flex xs5>-->
-      <!--<v-card-media-->
-        <!--src="https://randomuser.me/api/portraits/men/85.jpg"-->
-        <!--height="125px"-->
-        <!--contain-->
-      <!--&gt;</v-card-media>-->
-    <!--</v-flex>-->
-  <!--</v-layout>-->
-
-<!--</template>-->
 
 <script>
   export default{
