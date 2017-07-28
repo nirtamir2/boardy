@@ -39,7 +39,7 @@
         grid-list-lg>
         <v-layout row wrap>
           <v-flex xs12 v-for="item in this.schedule">
-            <v-card class="cyan darken-2 white--text">
+            <v-card v-if="!item.deleted" class="cyan darken-2 white--text">
               <v-container fluid grid-list-lg>
                 <v-layout row>
                   <v-flex xs7>
@@ -55,7 +55,7 @@
                     ></v-card-media>
                   </v-flex>
                   <div>
-                    <v-checkbox fab dark small primary v-model="check">
+                    <v-checkbox fab dark small primary @click.native="item.deleted=true">
                     </v-checkbox>
                     <!--<v-btn fab dark small primary>-->
                       <!--<v-icon dark>remove</v-icon>-->
@@ -85,7 +85,8 @@
       setScheduleByDate(){
         this.schedule = this.getEventsByDay(this.chosenDate);
 
-      },
+      }
+      ,
       getEventsByDay(date)
       {
         console.log('date is'   );
