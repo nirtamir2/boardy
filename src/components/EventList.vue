@@ -39,31 +39,34 @@
         grid-list-lg>
         <v-layout row wrap>
           <v-flex xs12 v-for="item in this.schedule">
-            <v-card v-if="!item.deleted" class="cyan darken-2 white--text">
-              <v-container fluid grid-list-lg>
-                <v-layout row>
-                  <v-flex xs7>
+            <transition name="fade">
+              <v-card
+                v-if="!item.deleted" class="cyan darken-2 white--text">
+                <v-container fluid grid-list-lg>
+                  <v-layout row>
+                    <v-flex xs7>
+                      <div>
+                        <div class="headline">{{item.text}}</div>
+                      </div>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-media
+                        :src="item.image_url"
+                        height="125px"
+                        contain
+                      ></v-card-media>
+                    </v-flex>
                     <div>
-                      <div class="headline">{{item.text}}</div>
-                    </div>
-                  </v-flex>
-                  <v-flex xs5>
-                    <v-card-media
-                      :src="item.image_url"
-                      height="125px"
-                      contain
-                    ></v-card-media>
-                  </v-flex>
-                  <div>
-                    <v-checkbox fab dark small primary @click.native="item.deleted=true">
-                    </v-checkbox>
-                    <!--<v-btn fab dark small primary>-->
+                      <v-checkbox fab dark small primary @click.native="item.deleted=true">
+                      </v-checkbox>
+                      <!--<v-btn fab dark small primary>-->
                       <!--<v-icon dark>remove</v-icon>-->
-                    <!--</v-btn>-->
-                  </div>
-                </v-layout>
-              </v-container>
-            </v-card>
+                      <!--</v-btn>-->
+                    </div>
+                  </v-layout>
+                </v-container>
+              </v-card>
+            </transition>
           </v-flex>
           <v-flex xs12>
           </v-flex>
@@ -89,9 +92,9 @@
       ,
       getEventsByDay(date)
       {
-        console.log('date is'   );
+        console.log('date is');
         console.log(date);
-        this.$http.get('http://34.228.0.162:8000/myschedule/?date='+date).then((data) => {
+        this.$http.get('http://34.228.0.162:8000/myschedule/?date=' + date).then((data) => {
           console.log(data);
           this.schedule = data.body[0].events;
         })
@@ -107,3 +110,13 @@
     }
   }
 </script>
+<style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+  {
+    opacity: 0
+  }
+</style>
