@@ -57,9 +57,9 @@
                   <div>
                     <v-checkbox fab dark small primary v-model="check">
                     </v-checkbox>
-                    <v-btn fab dark small primary>
-                      <v-icon dark>remove</v-icon>
-                    </v-btn>
+                    <!--<v-btn fab dark small primary>-->
+                      <!--<v-icon dark>remove</v-icon>-->
+                    <!--</v-btn>-->
                   </div>
                 </v-layout>
               </v-container>
@@ -68,7 +68,7 @@
           <v-flex xs12>
           </v-flex>
           <div>
-            <v-btn fab dark small primary @click.native="getEventsByDay">
+            <v-btn fab dark small primary>
               <v-icon dark>add</v-icon>
             </v-btn>
           </div>
@@ -84,11 +84,13 @@
     methods: {
       setScheduleByDate(){
         this.schedule = this.getEventsByDay(this.chosenDate);
+
       },
       getEventsByDay(date)
       {
-        console.log("aaa");
-        this.$http.get('http://34.228.0.162:8000/api/schedule/').then((data) => {
+        console.log('date is'   );
+        console.log(date);
+        this.$http.get('http://34.228.0.162:8000/myschedule/?date='+date).then((data) => {
           console.log(data);
           this.schedule = data.body[0].events;
         })
@@ -98,8 +100,8 @@
     data(){
       return {
         e7: null,
-        schedule: this.getEventsByDay(),
         chosenDate: new Date().toISOString().slice(0, 10),
+        schedule: this.getEventsByDay(new Date().toISOString().slice(0, 10)),
       };
     }
   }
