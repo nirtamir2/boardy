@@ -20,7 +20,7 @@
             <label class="inputText col-sm-2 control-label" dir="rtl">סיסמה:</label>
           </div>
         </div>
-        <button  v-on:click="yourMethod()" type="submit" class="btn btn-success btn-sm">התחבר</button>
+        <button @click = "navigateToEventLists" class="btn btn-success btn-sm">התחבר</button>
       </form><!-- /form -->
     </div><!-- /card-container -->
   </div><!-- /container -->
@@ -38,6 +38,11 @@
       yourMethod(){
         var createJson = {username: inputName, password: inputPassword};
         alert(createJson);
+      },
+      navigateToEventLists() {
+        {
+          this.$router.push('eventlist')
+        }
       }
     }
   }
